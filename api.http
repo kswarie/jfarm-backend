@@ -1,0 +1,50 @@
+GET http://{{url}}/api/dashboard/currentstock
+Accept: application/json
+Authorization: Bearer {{access_token}}
+
+###
+PUT http://{{url}}/api/location/1
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+    "id": 1,
+    "name": "Selangor Utara Farm",
+    "description": "Peternakan ayam kampung region Selangor Utara",
+    "status": "active"
+}
+
+###
+POST http://{{url}}/api/location
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+    "name": "Selangor Utara Farm",
+    "description": "Peternakan ayam kampung region Selangor Utara"
+}
+
+###
+GET http://{{url}}/api/location
+Accept: application/json
+Authorization: Bearer {{access_token}}
+
+###
+GET http://{{url}}/api/cage_type
+Accept: application/json
+Authorization: Bearer {{access_token}}
+
+###
+POST http://{{url}}/api/login
+Content-Type: application/json
+
+{
+    "email": "{{email}}",
+    "password": "{{password}}"
+}
+
+> {%
+    var token = jsonPath(response.body, "$.data.access_token",);
+    client.global.set("access_token", token);
+ %}
+
