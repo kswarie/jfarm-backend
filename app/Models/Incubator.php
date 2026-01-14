@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Incubator extends Model
 {
     use HasFactory;
-    use SoftDeletes;
+//    use SoftDeletes;
     protected $table = 'incubators';
 
     protected $guarded = [];

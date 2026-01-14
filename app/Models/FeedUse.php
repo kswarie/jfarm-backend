@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class FeedUse extends Model
 {
     use HasFactory;
-    use SoftDeletes;
+//    use SoftDeletes;
     protected $table = 'feed_uses';
 
     protected $guarded = [];

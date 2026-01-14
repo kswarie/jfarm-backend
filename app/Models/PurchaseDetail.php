@@ -13,4 +13,12 @@ class PurchaseDetail extends Model
     protected $table = 'purchase_details';
 
     protected $guarded = [];
+
+    public function product() {
+        return $this->belongsTo(Product::class);
+    }
+
+    public function purchase() {
+        return $this->belongsTo(Purchase::class);
+    }
 }

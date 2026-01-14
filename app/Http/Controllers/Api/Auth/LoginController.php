@@ -29,11 +29,11 @@ class LoginController extends Controller
         }
         $user = User::where('email', $input['email'])->first();
         if (empty($user)) {
-            return response()->json(ResponseHelper::errorCustom(204, 'Akun tidak ditemukan'), 200);
+            return response()->json(ResponseHelper::errorCustom(204, 'User not found'), 200);
         }
         $checked_pwd = Hash::check($input['password'], $user->password);
         if (!$checked_pwd) {
-            return response()->json(ResponseHelper::errorCustom(403, 'username atau password salah'), 403);
+            return response()->json(ResponseHelper::errorCustom(403, 'Email or Password Wrong'), 403);
         } else {
             $credentials = $request->only('email', 'password');
             try {

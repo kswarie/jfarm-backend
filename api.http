@@ -1,3 +1,98 @@
+GET http://{{url}}/api/sales
+Accept: application/json
+Authorization: Bearer {{access_token}}
+
+###
+GET http://{{url}}/api/purchase
+Accept: application/json
+Authorization: Bearer {{access_token}}
+
+###
+POST http://{{url}}/api/purchase
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+    "purchase_date": "2025-12-31T00:00:00+07:00",
+    "remarks": null,
+    "total_price": 0,
+    "purchase_detail" : [
+        {
+            "product_id" : 1,
+            "quantity": 10,
+            "age": 60
+        },
+        {
+            "product_id" : 2,
+            "quantity": 10,
+            "age": 60
+        }
+    ]
+}
+
+###
+GET http://{{url}}/api/product
+Accept: application/json
+Authorization: Bearer {{access_token}}
+
+###
+GET http://{{url}}/api/stock?products=A001,A002,B001,B002,C001&is_available=true
+Accept: application/json
+Authorization: Bearer {{access_token}}
+
+###
+GET http://{{url}}/api/death
+Accept: application/json
+Authorization: Bearer {{access_token}}
+
+###
+GET http://{{url}}/api/incubation?filterDate=2025-12-22
+Accept: application/json
+Authorization: Bearer {{access_token}}
+
+###
+GET http://{{url}}/api/birth
+Accept: application/json
+Authorization: Bearer {{access_token}}
+
+###
+GET http://{{url}}/api/incubation-detail/incubation/0
+Accept: application/json
+Authorization: Bearer {{access_token}}
+
+###
+GET http://{{url}}/api/tray
+Accept: application/json
+Authorization: Bearer {{access_token}}
+
+###
+GET http://{{url}}/api/incubator
+Accept: application/json
+Authorization: Bearer {{access_token}}
+
+###
+POST http://{{url}}/api/incubation
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+    "batch_code": "202512080001",
+    "start_date": "2025-12-08",
+    "egg_qty": 1000,
+    "remarks": "1st batch"
+}
+
+###
+GET http://{{url}}/api/incubation
+Accept: application/json
+Authorization: Bearer {{access_token}}
+
+###
+GET http://{{url}}/api/feed-use
+Accept: application/json
+Authorization: Bearer {{access_token}}
+
+###
 GET http://{{url}}/api/dashboard/currentstock
 Accept: application/json
 Authorization: Bearer {{access_token}}
@@ -46,5 +141,5 @@ Content-Type: application/json
 > {%
     var token = jsonPath(response.body, "$.data.access_token",);
     client.global.set("access_token", token);
- %}
+%}
 

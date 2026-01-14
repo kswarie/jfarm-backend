@@ -16,10 +16,20 @@ class JWTRole extends BaseMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, $role = null): Response
+    public function handle(Request $request, Closure $next, ...$roles): Response
     {
         try {
-            $token_role = $this->auth->parseToken()->getClaim('role');
+            $token_role = $this->auth->parseToken()->getClaim('roles');
+            if (!is_array($token_role)) {
+                $token_role = [$token_role];
+            }
+
+            // Jika salah satu role user cocok dengan role yang diperbolehkan
+            $intersect = array_intersect($token_role, $roles);
+
+            if (count($intersect) === 0) {
+                return response()->json(['error' => 'Forbidden (role mismatch)'], 403);
+            }
         } catch (JWTException $e) {
             if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) {
                 return response()->json(ResponseHelper::errorCustom(401, 'Token is Invalid'), 401);
@@ -30,7 +40,8 @@ class JWTRole extends BaseMiddleware
             }
         }
 
-        if ($token_role != $role) {
+//        if ($token_role != $roles) {
+        if (count($intersect) === 0) {
             return response()->json(ResponseHelper::errorCustom(401, 'Token is Invalid'), 401);
         }
         return $next($request);

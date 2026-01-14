@@ -13,4 +13,12 @@ class SalesDetail extends Model
     protected $table = 'sales_details';
 
     protected $guarded = [];
+
+    public function stock() {
+        return $this->belongsTo(Stock::class);
+    }
+
+    public function sales() {
+        return $this->belongsTo(Sales::class);
+    }
 }

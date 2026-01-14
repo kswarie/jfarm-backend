@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Stock extends Model
@@ -13,4 +14,12 @@ class Stock extends Model
     protected $table = 'stocks';
 
     protected $guarded = [];
+
+    public function product() : BelongsTo {
+        return $this->belongsTo(Product::class);
+    }
+
+    public function site() : BelongsTo {
+        return $this->belongsTo(Site::class);
+    }
 }

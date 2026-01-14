@@ -13,4 +13,8 @@ class Purchase extends Model
     protected $table = 'purchases';
 
     protected $guarded = [];
+
+    public function details() {
+        return $this->hasMany(PurchaseDetail::class);
+    }
 }

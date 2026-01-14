@@ -13,4 +13,8 @@ class Sales extends Model
     protected $table = 'sales';
 
     protected $guarded = [];
+
+    public function details() {
+        return $this->hasMany(SalesDetail::class);
+    }
 }
