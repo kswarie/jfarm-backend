@@ -13,4 +13,9 @@ class Site extends Model
     protected $table = 'sites';
 
     protected $guarded = [];
+
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
+    }
 }

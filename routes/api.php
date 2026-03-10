@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\Transaction\IncubationController;
 use App\Http\Controllers\Api\Transaction\IncubationDetailController;
 use App\Http\Controllers\Api\Transaction\PurchaseController;
 use App\Http\Controllers\Api\Transaction\SalesController;
+use App\Http\Controllers\Api\Transaction\SiteController;
 use App\Http\Controllers\Api\Transaction\StockController;
 use Illuminate\Support\Facades\Route;
 
@@ -114,5 +115,6 @@ Route::middleware(['jwt.role:OPERATOR'])->prefix('/api')->group(function () {
     Route::get('/dashboard/currentstock', [CurrentStockController::class, 'show'])->name('show');
 
     Route::get('/stock', [StockController::class, 'index'])->name('index');
+    Route::get('/sites/info', [SiteController::class, 'info'])->name('info');
 
 });
