@@ -20,7 +20,10 @@ class ProductSeeder extends Seeder
             ['code' => 'B001', 'name' => 'Anakan Ayam Jantan Kampung'],
             ['code' => 'B002', 'name' => 'Anakan Ayam Betina Kampung'],
             ['code' => 'C001', 'name' => 'Telur Ayam Kampung'],
-            ['code' => 'D001', 'name' => 'Pakan'],
+            ['code' => 'D001', 'name' => 'Starter Crumble 50KG'],
+            ['code' => 'D002', 'name' => 'Makan Ayam Penelur 50KG'],
+            ['code' => 'D003', 'name' => 'Jagung Halus C 40KG'],
+            ['code' => 'D004', 'name' => 'Abu Beras 40KG'],
         );
         DB::table('products')->insert($data);
     }
