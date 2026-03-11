@@ -8,15 +8,28 @@ RUN apt-get update && apt-get install -y \
     unzip \
     nginx
 
+# install postgres extension
 RUN docker-php-ext-install pdo pdo_pgsql pgsql
 
+# install composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
 
+# copy composer files dulu supaya docker cache bekerja
+COPY composer.json composer.lock ./
+
+RUN composer install \
+    --no-dev \
+    --optimize-autoloader \
+    --no-interaction \
+    --prefer-dist
+
+# baru copy seluruh project
 COPY . .
 
-RUN composer install --no-dev --optimize-autoloader
+# permission laravel
+RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY docker/start.sh /start.sh
