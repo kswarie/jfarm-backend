@@ -9,7 +9,13 @@ RUN apt-get update && apt-get install -y \
     nginx
 
 # install postgres extension
-RUN docker-php-ext-install pdo pdo_pgsql pgsql
+RUN docker-php-ext-install \
+    pdo \
+    pdo_pgsql \
+    pgsql \
+    mbstring \
+    bcmath \
+    opcache
 
 # install composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
