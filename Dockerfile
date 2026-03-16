@@ -4,11 +4,13 @@ RUN apt-get update && apt-get install -y \
     git \
     curl \
     libpq-dev \
+    libonig-dev \
+    libzip-dev \
     zip \
     unzip \
     nginx
 
-# install postgres extension
+# install php extensions
 RUN docker-php-ext-install \
     pdo \
     pdo_pgsql \
@@ -17,12 +19,12 @@ RUN docker-php-ext-install \
     bcmath \
     opcache
 
-# install composer
+# composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
 
-# copy composer files dulu supaya docker cache bekerja
+# copy composer dulu (biar cache optimal)
 COPY composer.json composer.lock ./
 
 RUN composer install \
@@ -31,11 +33,10 @@ RUN composer install \
     --no-interaction \
     --prefer-dist
 
-# baru copy seluruh project
+# copy semua file
 COPY . .
 
-# permission laravel
-RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
+RUN chown -R www-data:www-data storage bootstrap/cache
 
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY docker/start.sh /start.sh
