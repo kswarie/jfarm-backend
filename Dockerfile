@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     libonig-dev \
     libzip-dev \
+    libxml2-dev \
     zip \
     unzip \
     nginx
@@ -17,6 +18,7 @@ RUN docker-php-ext-install \
     pgsql \
     mbstring \
     bcmath \
+    zip \
     opcache
 
 # composer
@@ -31,7 +33,7 @@ RUN composer install \
     --no-dev \
     --optimize-autoloader \
     --no-interaction \
-    --prefer-dist
+    --prefer-dist -vvv
 
 # copy semua file
 COPY . .
